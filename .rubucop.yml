@@ -1,0 +1,463 @@
+---
+require:
+  - rubocop-rails
+  - rubocop-i18n
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    # - "config.ru"
+    # - "bin/**/*"
+    - "config/**/*"
+    # - "lib/pb/**/*"
+    # - "node_modules/**/*"
+    # - "front/node_modules/**/*"
+    # - "front/schema/**/*"
+    - "vendor/**/*"
+    - "script/**/*"
+    - ".{idea,circleci,bundle}/**/*"
+
+# 日本語コメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# クラスのコメント必須を無視
+Style/Documentation:
+  Enabled: false
+
+# モジュール名::クラス名の定義を許可
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# 1行の長さを140まで許可
+Layout/LineLength:
+  Max: 140
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+# 空の when 節を許可
+Lint/EmptyWhen:
+  Enabled: false
+
+# 条件分岐時の代入を許可
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# クラスの長さを200行まで許可
+# CHRecruit はどうしても複雑なクラスが多くなるので
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - spec/**/*
+    - test/**/*
+    - db/**/*
+    - app/model/**/*
+
+# メソッドの長さを80行まで許可
+Metrics/MethodLength:
+  Max: 80
+  Exclude:
+    - spec/**/*
+    - test/**/*
+
+# ブロックの行数を60行まで許可
+Metrics/BlockLength:
+  Max: 60
+  Exclude:
+    - spec/**/*
+    - test/**/*
+
+# 複雑なコードが多いので仕方無く
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - spec/**/*
+    - test/**/*
+
+# テストでは短い引数名も許容
+Naming/MethodParameterName:
+  Exclude:
+    - spec/**/*
+    - test/**/*
+
+# 複数行のハッシュの最終要素のうしろにカンマを必須とする
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# ハッシュの key と value のスペースは2つ以上でも許可する。(value の先頭に揃えて書きたいときのため)
+Layout/HashAlignment:
+  Enabled: false
+
+# => 前後のスペースは2つ以上でも許可する。(value の先頭に揃えて書きたいときのため)
+Layout/SpaceAroundOperators:
+  AllowForAlignment: false
+  Enabled: true
+
+# メソッド呼び出しの引数のなかにスペースを入れてよいことにする (そうしないと Slim 書きにくい)
+Layout/SpaceInsideParens:
+  Enabled: false
+  Exclude:
+    - app/views/**/*.slim
+
+# メソッド呼び出しの引数のインデントをチェックしない (そうしないと Slim 書きにくい)
+Layout/FirstArgumentIndentation:
+  Enabled: false
+  Exclude:
+    - app/views/**/*.slim
+
+# 複数行にまたがるまたがるメソッドの呼び出しのインデントをチェックしない(可読性が下がるので)
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+# RSpec の contect の文章を特定の単語から始まるもののみ許可する、を disable にする(日本語を書く我々には無理)
+RSpec/ContextWording:
+  Enabled: false
+
+# RSpec の example の文章を特定の単語から始まるもののみ許可する、を disable にする(日本語を書く我々には無理)
+RSpec/ExampleWording:
+  Enabled: false
+
+# RSpec の Example の長さを20までにする
+RSpec/ExampleLength:
+  Max: 20
+
+# + 演算子で文字列を結合するのはやめる、をやめる (わかりにくい)
+Style/StringConcatenation:
+  Enabled: false
+
+# 行末で + で結合するのをやめる、のをやめる (わかりにくい)
+Style/LineEndConcatenation:
+  Enabled: false
+
+# 浮動小数点数の e 記法を強制するのをやめる (わかりにくくなる)
+Style/ExponentialNotation:
+  Enabled: false
+
+# rescue => e 表記を許可
+Style/RescueStandardError:
+  Enabled: false
+
+# $! を使えるようにする
+Style/SpecialGlobalVars:
+  Enabled: false
+
+# Rails の I18n.t の引数に #{} 記法を使ってはいけないとするのをやめる
+I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
+  Enabled: false
+
+# raise の引数は i18n 使わなくていいことにする
+I18n/GetText/DecorateFunctionMessage:
+  Enabled: false
+
+# I18n/GetText は使わない
+I18n/GetText/DecorateString:
+  Enabled: false
+
+# I18n/RailsI18n は使わない
+I18n/RailsI18n/DecorateString:
+  Enabled: false
+
+# rspec の expect 文の件数上限
+RSpec/MultipleExpectations:
+  Max: 10
+
+# rspec の context の数上限
+RSpec/NestedGroups:
+  Max: 10
+
+# rspec にて subject の使用を許可する
+RSpec/NamedSubject:
+  Enabled: false
+
+# rspec にて allow_any_instance_of メソッドの使用を許可する
+RSpec/AnyInstance:
+  Enabled: false
+
+# "%<foo>s" 構文を使うのを強制しない
+Style/FormatStringToken:
+  Enabled: false
+
+# ブロックコメントは使ってもよいことにする
+Style/BlockComments:
+  Enabled: false
+
+# Symbol の命名規則を外す (proto から生成されたコードとの相性が悪いため)
+Naming/VariableNumber:
+  CheckSymbols: false
+
+# -----
+# Rubocop の default で Enable にするか否かが決められていないもの
+# -----
+#
+# Hash#keys.{keys,values}.each の利用を禁止する (Hash#each_keys, Hash#each_values を使うことを強制)
+Style/HashEachMethods:
+  Enabled: true
+
+# Exceptionクラスの例外をraiseするのを禁止 (StandardError を継承する例外クラスのみ許可)
+Lint/RaiseException:
+  Enabled: true
+
+# Struct の値が Struct のメソッドを上書きしないように強制
+Lint/StructNewOverride:
+  Enabled: true
+
+# accessor の前後に空行を入れる
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# メソッド呼び出し演算子 (.) の前後のスペースの整形
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# OpenSSL の廃止された定数を使わない
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+# 正規表現の名前つきキャプチャと名前つかわないキャプチャを混用してはならない
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+# Hash#transform_keys メソッドが使える局面ではなるべく使う
+Style/HashTransformKeys:
+  Enabled: true
+
+# Hash#transform_values メソッドが使える局面ではなるべく使う
+Style/HashTransformValues:
+  Enabled: true
+
+# 正規表現で不必要な文字クラス表現を使わない
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+# 正規表現で不必要な文字エスケープをしない
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+# 配列の範囲指定で items[n..] 形式が使える局面ではなるべく使う
+Style/SlicingWithRange:
+  Enabled: true
+
+# 例外クラスを raise に渡す引数として Exception#new を渡すことを許容する。
+Style/RaiseArgs:
+  Enabled: false
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRequire:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/EmptyFile:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: true
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: true
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/TrailingCommaInAttributeDeclaration:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UselessMethodDefinition:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/CombinableLoops:
+  Enabled: true
+
+Style/ExplicitBlockArgument:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/KeywordParametersOrder:
+  Enabled: true
+
+Style/OptionalBooleanParameter:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/RedundantSelfAssignment:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: true
+
+Style/SoleNestedConditional:
+  Enabled: true
+
+# If you want rails-i18n-style checking
+Rails/ShortI18n:
+  Enabled: true
+
+# Windows 環境のファイルパス形式を考慮した設定
+# filepath は `Rails.root.join('app', 'models', 'user')` のように指定
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+    - integration
+
+Gemspec/DateAssignment: # (new in 1.10)
+  Enabled: true
+Layout/SpaceBeforeBrackets: # (new in 1.7)
+  Enabled: true
+Lint/AmbiguousAssignment: # (new in 1.7)
+  Enabled: true
+Lint/DeprecatedConstants: # (new in 1.8)
+  Enabled: true
+Lint/DuplicateBranch: # (new in 1.3)
+  Enabled: false
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: true
+Lint/EmptyBlock: # (new in 1.1)
+  Enabled: true
+Lint/EmptyClass: # (new in 1.3)
+  Enabled: true
+Lint/EmptyInPattern: # (new in 1.16)
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
+  Enabled: true
+Lint/NumberedParameterAssignment: # (new in 1.9)
+  Enabled: true
+Lint/OrAssignmentToConstant: # (new in 1.9)
+  Enabled: true
+Lint/RedundantDirGlobSort: # (new in 1.8)
+  Enabled: true
+Lint/SymbolConversion: # (new in 1.9)
+  Enabled: true
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: true
+Lint/TripleQuotes: # (new in 1.9)
+  Enabled: true
+Lint/UnexpectedBlockArity: # (new in 1.5)
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: true
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: true
+Style/EndlessMethod: # (new in 1.8)
+  Enabled: true
+Style/HashConversion: # (new in 1.10)
+  Enabled: true
+Style/HashExcept: # (new in 1.7)
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # (new in 1.9)
+  Enabled: true
+Style/InPatternThen: # (new in 1.16)
+  Enabled: true
+Style/MultilineInPatternThen: # (new in 1.16)
+  Enabled: true
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: true
+Style/NilLambda: # (new in 1.3)
+  Enabled: true
+Style/QuotedSymbols: # (new in 1.16)
+  Enabled: true
+Style/RedundantArgument: # (new in 1.4)
+  Enabled: true
+Style/StringChars: # (new in 1.12)
+  Enabled: true
+Style/SwapValues: # (new in 1.1)
+  Enabled: true
+Rails/ActiveRecordCallbacksOrder: # (new in 2.7)
+  Enabled: true
+Rails/AfterCommitOverride: # (new in 2.8)
+  Enabled: true
+Rails/AttributeDefaultBlockValue: # (new in 2.9)
+  Enabled: true
+Rails/EnvironmentVariableAccess: # (new in 2.10)
+  Enabled: true
+  AllowReads: true
+Rails/FindById: # (new in 2.7)
+  Enabled: true
+Rails/Inquiry: # (new in 2.7)
+  Enabled: true
+Rails/MailerName: # (new in 2.7)
+  Enabled: true
+Rails/MatchRoute: # (new in 2.7)
+  Enabled: true
+Rails/NegateInclude: # (new in 2.7)
+  Enabled: true
+Rails/Pluck: # (new in 2.7)
+  Enabled: true
+Rails/PluckInWhere: # (new in 2.7)
+  Enabled: true
+Rails/RenderInline: # (new in 2.7)
+  Enabled: true
+Rails/RenderPlainText: # (new in 2.7)
+  Enabled: true
+Rails/SquishedSQLHeredocs: # (new in 2.8)
+  Enabled: true
+Rails/TimeZoneAssignment: # (new in 2.10)
+  Enabled: true
+Rails/WhereEquals: # (new in 2.9)
+  Enabled: true
+Rails/WhereExists: # (new in 2.7)
+  Enabled: true
+Rails/WhereNot: # (new in 2.8)
+  Enabled: true
+Layout/LineEndStringConcatenationIndentation: # (new in 1.18)
+  Enabled: true
+Naming/InclusiveLanguage: # (new in 1.18)
+  Enabled: true
