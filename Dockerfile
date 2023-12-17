@@ -33,14 +33,14 @@ RUN echo 'gem: --no-document' >> ~/.gemrc && \
 # Copy application code
 COPY . .
 
-# # コンテナ起動時に実行させるスクリプトを追加
+# コンテナ起動時に実行させるスクリプトを追加
 # COPY entrypoint.sh /usr/bin/
 # RUN chmod +x /usr/bin/entrypoint.sh
 # ENTRYPOINT ["entrypoint.sh"]
 # EXPOSE 4000
 
-# # CMD:コンテナ実行時、デフォルトで実行したいコマンド
-# # Rails サーバ起動
+# CMD:コンテナ実行時、デフォルトで実行したいコマンド
+# Rails サーバ起動
 # CMD ["rails", "server", "-b", "0.0.0.0"]
 
 # Precompile bootsnap code for faster boot times
