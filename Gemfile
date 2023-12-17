@@ -40,6 +40,11 @@ gem 'graphql'
 gem 'graphql-batch'
 gem 'graphql-client'
 
+# Use gRPC
+gem 'google-protobuf'
+gem 'grpc'
+gem 'grpc-tools'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

@@ -93,6 +93,10 @@ GEM
     erubi (1.12.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (3.25.1-aarch64-linux)
+    google-protobuf (3.25.1-x86_64-linux)
+    googleapis-common-protos-types (1.11.0)
+      google-protobuf (~> 3.18)
     graphql (2.1.7)
       racc (~> 1.4)
     graphql-batch (0.5.3)
@@ -101,6 +105,13 @@ GEM
     graphql-client (0.18.0)
       activesupport (>= 3.0)
       graphql
+    grpc (1.60.0-aarch64-linux)
+      google-protobuf (~> 3.25)
+      googleapis-common-protos-types (~> 1.0)
+    grpc (1.60.0-x86_64-linux)
+      google-protobuf (~> 3.25)
+      googleapis-common-protos-types (~> 1.0)
+    grpc-tools (1.60.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.7.1)
@@ -233,9 +244,12 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  google-protobuf
   graphql
   graphql-batch
   graphql-client
+  grpc
+  grpc-tools
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)
