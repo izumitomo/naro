@@ -16,6 +16,17 @@ services:
     stdin_open: true
     depends_on:
       - db
+  front:
+    build: ./front
+    command: sh -c "yarn install && yarn dev"
+    volumes:
+      - "./front:/front"
+      # - "node-modules:/front/node_modules"
+    ports:
+      - "4001:4001"
+    tty: true
+    stdin_open: true
+    init: true
   db:
     image: postgres:15.3-alpine
     environment:
@@ -30,5 +41,7 @@ services:
 volumes:
   bundle:
     driver: local
+  # node-modules:
+  #   driver: local
   postgresql-db:
     driver: local

@@ -1,10 +1,9 @@
 # syntax = docker/dockerfile:1
 
+FROM node:20.10-slim as node
+
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.1
-FROM ruby:${RUBY_VERSION} 
-
-
+FROM ruby:3.2.1 
 
 # Rails app lives here
 WORKDIR /myapp
