@@ -24,7 +24,11 @@ default: &default
 
 development:
   <<: *default
-  database: naro_development
+  database: naro_dev
+  username: root
+  password: password
+  host: db
+  port: 4321
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.

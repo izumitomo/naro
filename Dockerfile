@@ -16,6 +16,14 @@ ENV BUNDLER_VERSION="2.4.21" \
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config libpq-dev
+    
+# postgresql-clientだけ別サーバーから取得する
+RUN apt-get update && \
+apt-get install -y wget gnupg2 lsb-release && \
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | tee  /etc/apt/sources.list.d/pgdg.list && \
+apt-get update && \
+apt-get install -y postgresql-client-15
 
 # Install application gems
 ADD Gemfile /myapp/Gemfile

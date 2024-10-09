@@ -5,6 +5,7 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && \
       bundle exec rails s -p 4000 -b '0.0.0.0'"
     environment:
+      DB_NAME: naro_dev
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
     volumes:
@@ -37,7 +38,9 @@ services:
       - "14321:4321"
     volumes:
       - "postgresql-db:/var/lib/postgresql/data"
-    command: -p 4321
+      - "./postgres/postgres.conf:/etc/postgresql/postgresql.conf"
+      - "./postgres/log:/log"
+    command: postgres -p 4321 -c 'config_file=/etc/postgresql/postgresql.conf'
 volumes:
   bundle:
     driver: local
